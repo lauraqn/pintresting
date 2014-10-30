@@ -13,11 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require jquery.turbolinks
 //= require turbolinks
+//= require masonry/jquery.masonry
 //= require_tree .
 
 
 // asynchronous - can make additional web requests without refreshing everything
+
 function ajax() {
     var xmlhttp; 
  

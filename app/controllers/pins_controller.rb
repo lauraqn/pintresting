@@ -1,5 +1,4 @@
 class PinsController < ApplicationController
-  respond_to :html, :xml, :json
   before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :set_pin, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
@@ -7,16 +6,13 @@ class PinsController < ApplicationController
 
   def index
     @pins = Pin.all
-    respond_with(@pins)
   end
 
   def show
-    respond_with(@pin)
   end
 
   def new
     @pin = current_user.pins.build
-    respond_with(@pin)
   end
 
   def edit
@@ -24,7 +20,6 @@ class PinsController < ApplicationController
 
   def create
     @pin = current_user.pins.build(pin_params)
-    respond_with(@pin)
     if @pin.save
       redirect_to @pin, notice: 'Pin was successfully created.'
     else
@@ -34,7 +29,6 @@ class PinsController < ApplicationController
 
   def update
     if @pin.update(pin_params)
-      respond_with(@pin)
       redirect_to @pin, notice: 'Pin was successfully updated.'
     else
       render action: 'edit'

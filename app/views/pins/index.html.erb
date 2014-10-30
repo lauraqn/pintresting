@@ -8,7 +8,9 @@
 <table>
   <thead>
     <tr>
+      <th><h3>Image</h3></th>
       <th><h3>Description</h3></th>
+      <th><h3>User</h3></th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,10 +20,14 @@
   <tbody>
     <% @pins.each do |pin| %>
       <tr>
+        <td><%= image_tag pin.image.url(:medium) %></td>
         <td><%= pin.description %></td>
+        <td><%= pin.user.email if pin.user %><td>
         <td><%= link_to 'View', pin, class: "btn btn-default"%></td>
-        <td><%= link_to 'Edit', edit_pin_path(pin), class: "btn btn-default" %></td>
-        <td><%= link_to 'Delete', pin, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default"%></td>
+        <% if pin.user == current_user %>
+          <td><%= link_to 'Edit', edit_pin_path(pin), class: "btn btn-default" %></td>
+          <td><%= link_to 'Delete', pin, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default"%></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -29,5 +35,7 @@
 
 <br>
 
-<%= link_to 'New Pin', new_pin_path, class: "btn btn-warning"%>
+<% if user_signed_in? %>
+  <%= link_to 'New Pin', new_pin_path, class: "btn btn-warning"%>
+<% end %>
 </div>
